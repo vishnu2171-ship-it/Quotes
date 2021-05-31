@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+
+    <div id="quotes"></div>
+    <div id="author"></div>
+    <button onclick="getNewQuote()" id="btn1">New Quotes</button>    
+    <button  id="tweet">Tweet Quote</button>
+
+    <script>
+        let realData= ''
+        let quoteData = ''
+        let authorData = ''
+        let auth = "By Unknown"
+        const tweetMe = document.getElementById("tweet")
+
+        const tweet = ()=>{
+            
+         
+           if(authorData === null)
+           {
+            const tweetPost =  `https://twitter.com/intent/tweet?text=${quoteData} 
+                                author-${auth}
+                                (You can put your name if you want to😏!!!!)` 
+            window.open(tweetPost)          
+           }
+           else{
+            const tweetPosts =  `https://twitter.com/intent/tweet?text=${quoteData} 
+                                 author-${authorData}✨` 
+            window.open(tweetPosts)
+           }
+           
+           
+        }
+        getNewQuote = ()=>{
+            const quote = document.getElementById("quotes")
+            const author = document.getElementById('author')
+            let rnum = Math.floor(Math.random()*20)
+            quoteData = realData[rnum].text
+            authorData = realData[rnum].author  
+            if(authorData === null)
+            {
+                author.innerText = auth
+            }
+            else
+            {
+                author.innerText = `By ${authorData}`
+            }          
+            quote.innerText = `${quoteData}`
+            
+        }
+        const getQuotes =  async ()=>{
+            const api = "https://type.fit/api/quotes"
+            try {
+                let data  = await fetch(api)
+                realData = await data.json()
+               
+                getNewQuote()
+               
+                  
+
+                  
+
+
+            } catch (error) {
+                
+            }
+        }
+        getQuotes()
+        tweetMe.addEventListener('click',tweet)
+    
+    </script>
+</body>
+</html>
