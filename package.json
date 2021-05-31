@@ -4,6 +4,7 @@
   "description": "My Quotes",
   "main": "quote.js",
   "scripts": {
+    "start":"node quote.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
